@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Rhythm | Conciertos Estelares</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-base: #050C1F;
+            --bg-surface: #0A1433;
+            --accent: #FFBF00;
+            --magenta: #8B008B;
+            --text-light: #F4F4F5;
+            --text-muted: #A1A1AA;
+            --font-title: 'Playfair Display', serif;
+            --font-body: 'Space Grotesk', sans-serif;
+            --font-ui: 'Inter', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-light);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Dissolve_Noise_Texture.png');
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        h1, h2, h3 { font-family: var(--font-title); }
+        a { text-decoration: none; color: inherit; }
+
+        .portal-header {
+            background: var(--bg-base);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: sticky; top: 0; z-index: 100;
+        }
+
+        .top-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 5%; background: rgba(10, 20, 51, 0.95);
+        }
+
+        .logo-container h1 {
+            color: var(--accent); font-size: 1.8rem; letter-spacing: 1px;
+            display: flex; align-items: center; gap: 10px;
+        }
+
+        /* --- Navegación Unificada --- */
+        .category-nav {
+            display: flex; gap: 2rem; padding: 0.8rem 5%;
+            background: rgba(5, 12, 31, 0.95); font-family: var(--font-ui);
+            font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;
+            overflow-x: auto; white-space: nowrap;
+        }
+
+        .category-nav a {
+            color: var(--text-muted); transition: all 0.3s ease;
+            padding-bottom: 5px; border-bottom: 2px solid transparent;
+        }
+
+        .category-nav a:hover, .category-nav a.active {
+            color: var(--accent) !important;
+            border-bottom: 2px solid var(--accent) !important;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(255, 191, 0, 0.3);
+        }
+
+        .page-header {
+            padding: 3rem 5% 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 2rem;
+        }
+
+        .page-header h2 { font-size: 2.5rem; color: var(--text-light); margin-bottom: 0.5rem; }
+        .page-header p { color: var(--text-muted); font-family: var(--font-ui); font-size: 1rem; max-width: 600px; }
+
+        .headliners-container { padding: 0 5% 4rem; display: flex; flex-direction: column; gap: 3rem; }
+
+        .headliner-card {
+            display: flex; background: var(--bg-surface); border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px; overflow: hidden; transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease; min-height: 350px;
+        }
+
+        .headliner-card:hover { transform: translateX(10px); border-color: var(--magenta); box-shadow: -10px 10px 30px rgba(139, 0, 139, 0.15); }
+
+        .hl-image { flex: 0 0 40%; position: relative; overflow: hidden; }
+        .hl-image img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(1.1); transition: filter 0.5s ease, transform 0.5s ease; }
+        .headliner-card:hover .hl-image img { filter: grayscale(20%) sepia(40%) hue-rotate(320deg) saturate(1.5); transform: scale(1.05); }
+
+        .hl-content { flex: 1; padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
+
+        .hl-tag {
+            align-self: flex-start; background: rgba(255, 191, 0, 0.1); color: var(--accent);
+            border: 1px solid var(--accent); padding: 4px 12px; font-size: 0.75rem;
+            font-family: var(--font-ui); text-transform: uppercase; border-radius: 20px; margin-bottom: 1rem; letter-spacing: 1px;
+        }
+
+        .hl-content h3 { font-size: 2.8rem; line-height: 1.1; margin-bottom: 1rem; color: var(--text-light); }
+
+        .hl-meta {
+            display: flex; gap: 2rem; font-family: var(--font-ui); color: var(--text-muted);
+            margin-bottom: 1.5rem; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 1rem;
+        }
+
+        .hl-meta div { display: flex; align-items: center; gap: 8px; }
+        .hl-desc { color: var(--text-muted); margin-bottom: 2rem; font-size: 1.05rem; }
+        .hl-actions { display: flex; gap: 1rem; margin-top: auto; }
+
+        .btn {
+            display: inline-block; background: transparent; color: var(--accent);
+            border: 1px solid var(--accent); padding: 0.8rem 2rem; font-family: var(--font-body);
+            font-weight: 600; text-transform: uppercase; text-align: center; cursor: pointer; transition: all 0.3s ease; border-radius: 4px;
+        }
+        
+        .btn-solid { background: var(--accent); color: var(--bg-base); }
+        .btn:hover { background: var(--accent); color: var(--bg-base); box-shadow: 0 0 15px rgba(255, 191, 0, 0.3); }
+        .btn-play { border-color: var(--magenta); color: var(--text-light); }
+        .btn-play:hover { background: var(--magenta); border-color: var(--magenta); color: white; box-shadow: 0 0 15px rgba(139, 0, 139, 0.4); }
+
+        @media (max-width: 992px) {
+            .headliner-card { flex-direction: column; }
+            .hl-image { flex: 0 0 250px; }
+            .hl-content { padding: 2rem; }
+            .hl-meta { flex-direction: column; gap: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="portal-header">
+        <div class="top-bar">
+            <div class="logo-container">
+                <h1>BLUE RHYTHM <span style="font-size: 0.9rem; font-family: var(--font-ui); font-weight: normal; color: var(--text-muted);">| Cartelera 2026</span></h1>
+            </div>
+        </div>
+        <nav class="category-nav">
+            <a href="index.html">Todos los Eventos</a>
+            <a href="conciertos.html" class="active">Conciertos Estelares</a>
+            <a href="dj-sets.html">DJ Sets (Clubbing)</a>
+            <a href="masterclass.html">Masterclasses</a>
+            <a href="gastronomia.html">Gastronomía</a>
+            <a href="boletos.html">Comprar Boletos</a>
+        </nav>
+    </header>
+
+    <section class="page-header">
+        <h2>Conciertos Estelares</h2>
+        <p>Los actos principales del festival. Presentaciones en vivo de larga duración en el majestuoso <strong>Midnight Stage</strong>.</p>
+    </section>
+
+    <section class="headliners-container">
+        <article class="headliner-card">
+            <div class="hl-image">
+                <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Kamasi & The Synths">
+            </div>
+            <div class="hl-content">
+                <span class="hl-tag">Acto Inaugural</span>
+                <h3>Kamasi & The Synths</h3>
+                <div class="hl-meta">
+                    <div>📍 Midnight Stage</div>
+                    <div>🗓️ Viernes 12 Sept</div>
+                    <div style="color: var(--accent);">⌚ 21:00 - 23:30 hrs</div>
+                </div>
+                <p class="hl-desc">El virtuoso del saxofón reinterpreta su discografía llevándola a la pista de baile.</p>
+                <div class="hl-actions">
+                    <button class="btn btn-solid">Ver Abonos Disponibles</button>
+                    <button class="btn btn-play">▶ Escuchar Previa</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="headliner-card">
+            <div class="hl-image">
+                <img src="https://images.unsplash.com/photo-1598387993441-a364f854c3e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Thundercat">
+            </div>
+            <div class="hl-content">
+                <span class="hl-tag">Headline Sábado</span>
+                <h3>Thundercat & The Acid Collective</h3>
+                <div class="hl-meta">
+                    <div>📍 Midnight Stage</div>
+                    <div>🗓️ Sábado 13 Sept</div>
+                    <div style="color: var(--accent);">⌚ 22:30 - 01:00 hrs</div>
+                </div>
+                <p class="hl-desc">Grooves galácticos y líneas de bajo vertiginosas que rinden homenaje a los 90.</p>
+                <div class="hl-actions">
+                    <button class="btn btn-solid">Ver Abonos Disponibles</button>
+                    <button class="btn btn-play">▶ Escuchar Previa</button>
+                </div>
+            </div>
+        </article>
+    </section>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Rhythm | Gastronomía & Mixología</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-base: #050C1F;
+            --bg-surface: #0A1433;
+            --accent: #FFBF00;
+            --magenta: #8B008B;
+            --text-light: #F4F4F5;
+            --text-muted: #A1A1AA;
+            --font-title: 'Playfair Display', serif;
+            --font-body: 'Space Grotesk', sans-serif;
+            --font-ui: 'Inter', sans-serif;
+            --success-green: #10B981;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-light);
+            font-family: var(--font-body);
+            line-height: 1.6;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Dissolve_Noise_Texture.png');
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        h1, h2, h3 { font-family: var(--font-title); }
+        a { text-decoration: none; color: inherit; }
+
+        .portal-header {
+            background: var(--bg-base);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: sticky; top: 0; z-index: 100;
+        }
+
+        .top-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 5%; background: rgba(10, 20, 51, 0.95);
+        }
+
+        .logo-container h1 {
+            color: var(--accent); font-size: 1.8rem; letter-spacing: 1px;
+            display: flex; align-items: center; gap: 10px;
+        }
+
+        /* --- Navegación Unificada --- */
+        .category-nav {
+            display: flex; gap: 2rem; padding: 0.8rem 5%;
+            background: rgba(5, 12, 31, 0.95); font-family: var(--font-ui);
+            font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;
+            overflow-x: auto; white-space: nowrap;
+        }
+
+        .category-nav a {
+            color: var(--text-muted); transition: all 0.3s ease;
+            padding-bottom: 5px; border-bottom: 2px solid transparent;
+        }
+
+        .category-nav a:hover, .category-nav a.active {
+            color: var(--accent) !important;
+            border-bottom: 2px solid var(--accent) !important;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(255, 191, 0, 0.3);
+        }
+
+        .page-header { padding: 3rem 5% 2rem; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+
+        .gastro-grid { padding: 2rem 5% 4rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2.5rem; }
+
+        .gastro-card {
+            background: var(--bg-surface); border-radius: 6px; overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08); transition: transform 0.3s ease;
+        }
+
+        .gastro-card:hover { transform: translateY(-5px); border-color: var(--success-green); }
+
+        .gastro-content { padding: 1.5rem; }
+        .gastro-title { font-size: 1.4rem; color: white; margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body>
+    <header class="portal-header">
+        <div class="top-bar">
+            <div class="logo-container">
+                <h1>BLUE RHYTHM <span style="font-size: 0.9rem; font-family: var(--font-ui); font-weight: normal; color: var(--text-muted);">| Cartelera 2026</span></h1>
+            </div>
+        </div>
+        <nav class="category-nav">
+            <a href="index.html">Todos los Eventos</a>
+            <a href="conciertos.html">Conciertos Estelares</a>
+            <a href="dj-sets.html">DJ Sets (Clubbing)</a>
+            <a href="masterclass.html">Masterclasses</a>
+            <a href="gastronomia.html" class="active">Gastronomía</a>
+            <a href="boletos.html">Comprar Boletos</a>
+        </nav>
+    </header>
+
+    <section class="page-header">
+        <h2>Experiencia Culinaria</h2>
+        <p>Sabores curados especialmente para acompañar el ritmo del festival.</p>
+    </section>
+
+    <section class="gastro-grid">
+        <article class="gastro-card">
+            <div class="gastro-content">
+                <h3 class="gastro-title">Smoke & Brass BBQ</h3>
+                <p>Cortes de carne ahumados lentamente infusionados con bourbon.</p>
+                <div style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">📍 Zona Central Food Court</div>
+            </div>
+        </article>
+    </section>
+</body>
+</html>
